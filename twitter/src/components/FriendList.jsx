@@ -223,7 +223,7 @@ function FriendList() {
 
                               <h2>{eachUser.firstName} {eachUser.lastName}</h2>
                                <span className='span'>{eachUser.email}</span>
-                     <button>  <Link to={`/chat/${eachUser._id}`}> Chat </Link></button><hr />
+                     <button>  <Link to={`/chat/${eachUser._id}`}> <span className='chat'>Chat</span> </Link></button><hr />
 
                             {(eachUser?.me) ? <span><br />this is me</span> : null}
                       

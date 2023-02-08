@@ -16,6 +16,7 @@ const port = process.env.PORT || 5001;
 import cookie from 'cookie'
 mongoose.set('strictQuery', true);
 const SECRET = process.env.SECRET || "topsecret";
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
