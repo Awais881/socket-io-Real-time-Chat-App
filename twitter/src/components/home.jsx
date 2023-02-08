@@ -4,9 +4,10 @@ import { useEffect, useState, useContext } from "react";
 import {
   EmojiEmotions, Home, Image, Share, Mail, Notifications,
   PersonAdd, YouTube, Favorite, MoreVert,
-  StarBorder, ExpandLess, LiveTv, SportsEsports, VideoCameraBack, PlayCircle, Inbox,
+  StarBorder, ExpandLess, LiveTv, SportsEsports, VideoCameraBack, PlayCircle, Inbox,Chat,
   FavoriteBorder, ModeNight, PeopleAlt, Logout
 } from '@mui/icons-material'
+// import ChatIcon from '@mui/icons-material/Chat';
 import moment from 'moment'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -290,7 +291,7 @@ function Tweets() {
           <Icons>
 
             <Badge badgeContent={4} color="secondary" className="icon">
-              <Mail />
+            <Link to={`/friend-list`} className="userMessage"> <Chat /></Link>  
             </Badge>
             <Badge badgeContent={4} color="secondary" className="icon">
               <Notifications />

@@ -1,0 +1,19 @@
+.friend-list {
+    width: 50%;
+    margin: 0 auto;
+  }
+  
+  .friend-list h2 {
+    text-align: center;
+  }
+  
+  .friend-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .friend-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }

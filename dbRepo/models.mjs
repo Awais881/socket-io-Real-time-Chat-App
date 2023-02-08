@@ -23,6 +23,7 @@ let userSchema= new mongoose.Schema({
     email : { type: String, required: true }, 
     password :  { type: String, required: true },
 })
+userSchema.index({ firstName: 'text', lastName: 'text' });
 
 export const userModel= mongoose.model("Users", userSchema);
 
@@ -33,7 +34,15 @@ const otpSchema = new mongoose.Schema({
 });
 export const otpModel = mongoose.model('Otps', otpSchema);
 
-
+  let messagesSchema = new mongoose.Schema({
+    from: { type: mongoose.ObjectId, ref: 'Users', required: true },
+    to: { type: mongoose.ObjectId, ref: 'Users', required: true },
+    text: { type: String, required: true },
+    imageUrl: { type: String },
+    createdOn: { type: Date, default: Date.now },
+  })
+  messagesSchema.index({ text: 'text' });
+ export const messageModel = mongoose.model('Messages', messagesSchema);
 
 const mongodbURI = process.env.mongodbURI || "mongodb+srv://abc:awais123@cluster0.h4fc1n7.mongodb.net/Products?retryWrites=true&w=majority";
 

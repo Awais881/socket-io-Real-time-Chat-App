@@ -1,11 +1,18 @@
 import express from 'express';
 import { userModel, tweetModel } from './../dbRepo/models.mjs'
-import mongoose from 'mongoose';
-const router = express.Router()
+   
+
+
 import multer from 'multer';
 import bucket from "./../StorageAdmin/firebaseAdmin.mjs";
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
+import path from 'path';
+
+
+
+
+
 
 const storageConfig = multer.diskStorage({
 
@@ -18,7 +25,7 @@ const storageConfig = multer.diskStorage({
 var uploadMiddleware = multer({ storage: storageConfig })
 
 
-
+const router = express.Router()
 
 router.post('/tweet', uploadMiddleware.any(), (req, res) => {
     try {
@@ -37,20 +44,22 @@ router.post('/tweet', uploadMiddleware.any(), (req, res) => {
             return;
         }
 
-        console.log("req.body: ", req.body);
-        console.log("req.files: ", req.files);
+        // console.log("req.body: ", req.body);
+        // console.log("req.files: ", req.files);
 
-        console.log("uploaded file name: ", req.files[0].originalname);
-        console.log("file type: ", req.files[0].mimetype);
-        console.log("file name in server folders: ", req.files[0].filename);
-        console.log("file path in server folders: ", req.files[0].path);
+        // // console.log("uploaded file name: ", req.files[0].originalname);
+        // console.log("file type: ", req.files[0].mimetype);
+        // console.log("file name in server folders: ", req.files[0].filename);
+        // console.log("file path in server folders: ", req.files[0].path);
 
-
+  
         bucket.upload(
             req.files[0].path,
             {
                 destination: `tweetPictures/${req.files[0].filename}`, // give destination name if you want to give a certain name to file in bucket, include date to make name unique otherwise it will replace previous file with the same name
             },
+        
+
             function (err, file, apiResponse) {
                 if (!err) {
 
@@ -61,7 +70,7 @@ router.post('/tweet', uploadMiddleware.any(), (req, res) => {
                         if (!err) {
                             console.log("public downloadable url: ", urlData[0]) // this is public downloadable url 
 
-                            try {
+                          try {
                                 fs.unlinkSync(req.files[0].path)
                                 //file removed
                             } catch (err) {

@@ -12,7 +12,8 @@ import Home from './components/home';
 import Profile from './components/profile';
 import ChangePassword from './components/changePassword'
 import ForgetPassword from './components/forgetPassword'
-
+import FriendList from './components/FriendList'
+import ChatScreen from './components/chatScreen';
 
 
 
@@ -123,6 +124,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
            <Route path='profile' element={<Profile />} />
+           <Route path='friend-list' element={<FriendList />} />
+           <Route path='chat/:id' element={<ChatScreen />} />
          <Route path='change-password' element={<ChangePassword />} />
          <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Routes>

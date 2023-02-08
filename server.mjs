@@ -7,10 +7,13 @@ import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import AuthApis from './apis/auth.mjs'
 import TweetApis from './apis/tweet.mjs'
+// import Chats from './apis/chat.mjs'
+import { Server as socketIo } from 'socket.io';
+import { createServer } from "http";
 import { stringToHash, varifyHash } from 'bcrypt-inzi';
-import { userModel , otpModel} from './dbRepo/models.mjs';
+import { userModel , otpModel, messageModel} from './dbRepo/models.mjs';
 const port = process.env.PORT || 5001;
-
+import cookie from 'cookie'
 mongoose.set('strictQuery', true);
 const SECRET = process.env.SECRET || "topsecret";
 app.use(express.json());
@@ -72,6 +75,7 @@ app.use("/api/v1",(req, res ,next ) =>{
 
 
 app.use('/api/v1', TweetApis)
+// app.use('/api/v1', Chats)
 
 const getUser = async (req, res) => {
 
@@ -153,11 +157,172 @@ app.post("/api/v1/change-password" , async (req, res) =>{
     
     )
 
+    app.get('/api/v1/users', async (req, res) => {
+
+        const myId = req.body.token._id
+    
+        try {
+            const q = req.query.q;
+            console.log("q: ", q);
+    
+            let query;
+    
+            if (q) {
+                query = userModel.find({ $text: { $search: q } })
+            } else {
+                query = userModel.find({}).limit(20)
+            }
+    
+            const users = await query.exec();
+    
+            const modifiedUserList = users.map(eachUser => {
+    
+                let user = {
+                    _id: eachUser._id,
+                    firstName: eachUser.firstName,
+                    lastName: eachUser.lastName,
+                    email: eachUser.email
+                }
+    
+                if (eachUser._id.toString() === myId) {
+    
+                    console.log("matched");
+                    user.me = true
+                    return user;
+                } else {
+                    return user;
+                }
+            })
+    
+            res.send(modifiedUserList);
+    
+        } catch (e) {
+            console.log("Error: ", e);
+            res.send([]);
+        }
+    })
+    app.post('/api/v1/message', async (req, res) => {
+
+        if (
+            !req.body.text ||
+            !req.body.to
+        ) {
+            res.status("400").send("invalid input")
+            return;
+        }
+    
+        const sent = await messageModel.create({
+            from: req.body.token._id,
+            to: req.body.to,
+            text: req.body.text
+        })
+    
+        console.log("channel: ", `${req.body.to}-${req.body.token._id}`);
+    
+        const populatedMessage = await messageModel
+            .findById(sent._id)
+            .populate({ path: 'from', select: 'firstName lastName email' })
+            .populate({ path: 'to', select: 'firstName lastName email' })
+            .exec();
+    
+    
+        io.emit(`${req.body.to}-${req.body.token._id}`, populatedMessage)
+        io.emit(`personal-channel-${req.body.to}`, populatedMessage)
+    
+        console.log("populatedMessage: ", populatedMessage)
+    
+        res.send("message sent successfully");
+    })
+    
+    app.get('/api/v1/messages/:id', async (req, res) => {
+    
+        const messages = await messageModel.find({
+            $or: [
+                {
+                    from: req.body.token._id,
+                    to: req.params.id
+                },
+                {
+                    from: req.params.id,
+                    to: req.body.token._id,
+                }
+            ]
+        })
+            .populate({ path: 'from', select: 'firstName lastName email' })
+            .populate({ path: 'to', select: 'firstName lastName email' })
+            .limit(100)
+            .sort({ _id: -1 })
+            .exec();
+    
+        res.send(messages);
+    
+    })
+
+
 const __dirname = path.resolve();
 app.use('/', express.static(path.join(__dirname, './twitter/build')))
 app.use('*', express.static(path.join(__dirname, './twiter/build')))
+// THIS IS THE ACTUAL SERVER WHICH IS RUNNING
+const server = createServer(app);
 
+// handing over server access to socket.io
+const io = new socketIo(server, {
+    cors: {
+        origin: ["http://localhost:3000", 'https://mern-chat-app-inzamam.up.railway.app'],
+        credentials: true
+    }
+});
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
+
+
+
+
+io.on("connection", (socket) => {
+    console.log("New client connected with id: ", socket.id);
+
+    if (typeof socket?.request?.headers?.cookie !== "string") {
+        console.log("cookie was not found");
+        socket.disconnect(true)
+        return;
+    }
+
+    let cookieData = cookie.parse(socket?.request?.headers?.cookie);
+    console.log("cookieData: ", cookieData);
+
+    if (!cookieData?.Token) {
+        console.log("Token not found in cookie");
+        socket.disconnect(true)
+        return;
+    }
+
+    jwt.verify(cookieData?.Token, SECRET, function (err, decodedData) {
+        if (!err) {
+            console.log("decodedData: ", decodedData);
+            const nowDate = new Date().getTime() / 1000;
+            if (decodedData.exp < nowDate) {
+                socket.disconnect(true)
+            }
+        } else {
+            socket.disconnect(true)
+        }
+    });
+
+
+    // to emit data to a certain client
+    socket.emit("topic 1", "some data")
+
+    // collecting connected users in a array
+    // connectedUsers.push(socket)
+
+    socket.on("disconnect", (message) => {
+        console.log("Client disconnected with id: ", message);
+    });
+});
+
+// app.listen(port, () => {
+//     console.log(`Example app listening on port ${port}`)
+// })

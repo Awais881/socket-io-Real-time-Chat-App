@@ -20,4 +20,7 @@
     font-weight: bold;
     padding-bottom: 35px;
 } 
-
+.userMessage{
+    text-decoration: none;
+    color: white;
+   }
