@@ -9,7 +9,7 @@ let data = {
   isLogin: null,
   baseUrl:  window.location.href.split(":")[0] === "http"
   ? "http://localhost:5001/api/v1"
-  : " https://clumsy-ox-housecoat.cyclic.app/api/v1",
+  : " https://socket-io-react-time-chat-app-production.up.railway.app/api/v1",
   baseUrlSocketIo: (window.location.href.includes('localhost'))
   ?
   `http://localhost:5001` : ``
