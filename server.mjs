@@ -268,7 +268,7 @@ const server = createServer(app);
 // handing over server access to socket.io
 const io = new socketIo(server, {
     cors: {
-        origin: ["http://localhost:3000", 'https://mern-chat-app-inzamam.up.railway.app'],
+        origin: ["http://localhost:3000", 'https://socket-io-react-time-chat-app-production.up.railway.app'],
         credentials: true
     }
 });
