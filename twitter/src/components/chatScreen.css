@@ -1,8 +1,14 @@
 .messageView {
     display: flex;
     flex-direction: column;
+    border: 1px solid black;
+    height: 100vh;
 }
-
+.form {
+    padding: 20px; 
+    display:flex ; 
+    gap: 20px;
+}
 .message {
     /* border: 1px solid black; */
     padding: 10px;
@@ -32,4 +38,7 @@
 
 .message .name {
     font-weight: bold;
+}
+h1{
+   color: darkgray;
 }

@@ -1,19 +1,36 @@
+.friend-list .span {
+padding: 30px;
+margin: 20px;
+background-color: azure;
+
+}
 .friend-list {
-    width: 50%;
-    margin: 0 auto;
-  }
-  
-  .friend-list h2 {
-    text-align: center;
-  }
+  background-color: azure;
+}
   
   .friend-list ul {
     list-style: none;
     padding: 0;
   }
-  
-  .friend-list li {
+ 
+ .friend-list h2 {
     display: flex;
     justify-content: space-between;
     padding: 10px;
+  } 
+  .friend-list  button{
+    width: 100px;
+    border: none;
+    border-radius: 50px;
+    background-color: red;
+    color: greenyellow;
+  
+    
   }
+  .friend-list  button:hover{
+    background-color: gold;
+  }
+  .form{
+     padding: 20px;
+  }
+

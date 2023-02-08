@@ -109,10 +109,10 @@ function ChatScreen() {
         <>
              <Head />
             <div>
-            <h1>Chat with {recipientProfile?.firstName} {recipientProfile?.firstName}</h1>
-            <span>{recipientProfile?.email}</span>
+            <h1>Chat with {recipientProfile?.firstName} {recipientProfile?.lastName}</h1>
+            {/* <span>{recipientProfile?.email}</span> */}
 
-            <form onSubmit={sendMessage}>
+            <form onSubmit={sendMessage} className=" form">
                 <input type="text" placeholder='type your message' onChange={(e) => [
                     setWriteMessage(e.target.value)
                 ]} />

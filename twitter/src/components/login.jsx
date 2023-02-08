@@ -21,7 +21,7 @@ function Login() {
     e.preventDefault();
 
     try {
-        let response = await axios.post(`${state.baseUrl}/api/v1/login`, {
+        let response = await axios.post(`${state.baseUrl}/login`, {
             email: email,
             password: password
         }, {

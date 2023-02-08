@@ -1,3 +1,4 @@
+import './FriendList.css';
 import React from 'react';
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
@@ -20,7 +21,6 @@ import {
     MDBBtn, MDBContainer,MDBRow,MDBCol, MDBIcon,MDBInput
   } from 'mdb-react-ui-kit';
 
- 
   import { Box } from '@mui/system'
 function FriendList() {
 
@@ -203,7 +203,7 @@ function FriendList() {
           
         </Menu>
       </AppBar>
-      <form onSubmit={getUsers}>
+      <form onSubmit={getUsers} className="form">
          <h1>Search User</h1>
      <input type="search" 
       onChange={(e) => { setSearchTerm(e.target.value) }} />
@@ -219,11 +219,11 @@ function FriendList() {
         {(users?.length) ?
                 users?.map((eachUser, index) => {
                     return <div className='friend-list' key={index}>
-                     <button>  <Link to={`/chat/${eachUser._id}`}> Chat </Link></button> 
 
 
-                            <h2>{eachUser.firstName} {eachUser.lastName}</h2>
-                            <span>{eachUser.email}</span>
+                              <h2>{eachUser.firstName} {eachUser.lastName}</h2>
+                               <span className='span'>{eachUser.email}</span>
+                     <button>  <Link to={`/chat/${eachUser._id}`}> Chat </Link></button><hr />
 
                             {(eachUser?.me) ? <span><br />this is me</span> : null}
                       

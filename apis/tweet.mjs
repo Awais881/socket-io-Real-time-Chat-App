@@ -1,6 +1,6 @@
 import express from 'express';
 import { userModel, tweetModel } from './../dbRepo/models.mjs'
-   
+import mongoose from 'mongoose';
 
 
 import multer from 'multer';
