@@ -8,16 +8,24 @@ import jwt from 'jsonwebtoken';
 import AuthApis from './apis/auth.mjs'
 import TweetApis from './apis/tweet.mjs'
 // import Chats from './apis/chat.mjs'
-import { Server as socketIo } from 'socket.io';
-import { createServer } from "http";
+
+
+
 import { stringToHash, varifyHash } from 'bcrypt-inzi';
 import { userModel , otpModel, messageModel} from './dbRepo/models.mjs';
 const port = process.env.PORT || 5001;
+
+import { Server as socketIo } from 'socket.io';
+import { createServer } from "http";
 import cookie from 'cookie'
 mongoose.set('strictQuery', true);
+
+
 const SECRET = process.env.SECRET || "topsecret";
 app.use(express.json());
 app.use(cookieParser());
+
+
 app.use(cors({
     origin: ['http://localhost:3000', 'https://localhost:3000', "*"],
     credentials: true
@@ -262,6 +270,8 @@ app.post("/api/v1/change-password" , async (req, res) =>{
 const __dirname = path.resolve();
 app.use('/', express.static(path.join(__dirname, './twitter/build')))
 app.use('*', express.static(path.join(__dirname, './twiter/build')))
+
+
 // THIS IS THE ACTUAL SERVER WHICH IS RUNNING
 const server = createServer(app);
 

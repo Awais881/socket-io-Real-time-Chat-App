@@ -3,10 +3,10 @@ import axios from "axios";
 import { useEffect, useState, useContext } from 'react';
 import { GlobalContext } from '../context/context';
 import moment from 'moment';
-import { io } from "socket.io-client";
 import { useParams } from "react-router-dom";
 import Head from "./head";
-
+import Loader from "../assets/PostLoader.gif"
+import { io } from "socket.io-client";
 
 
 import "./chatScreen.css"
@@ -107,8 +107,8 @@ function ChatScreen() {
 
     return (
         <>
-             <Head />
-            <div>
+        
+            <div className="chat-Head">
             <h1>Chat with {recipientProfile?.firstName} {recipientProfile?.lastName}</h1>
             {/* <span>{recipientProfile?.email}</span> */}
 
@@ -118,7 +118,7 @@ function ChatScreen() {
                 ]} />
                 <button type="submit">Send</button>
             </form>
-
+            </div>
             <div className='messageView'>
 
                 {(conversation?.length) ?
@@ -140,11 +140,17 @@ function ChatScreen() {
                 }
             </div>
 
-            {(conversation?.length === 0 ? "No Messages found" : null)}
-            {(conversation === null ? "Loading..." : null)}
+            {(conversation?.length === 0 ? <div style={{ display: "flex", justifyContent: "center", alignItems: "center", 
+            position: "absolute", top: "100px" , left: "200px", minHeight: '100vh' }}>
+          <img width={800} src={Loader} alt="loading" />
+        </div>: null)}
+            {(conversation === null ? <div style={{ display: "flex", justifyContent: "center", alignItems: "center", 
+            position: "absolute", top: "100px" , left: "200px", minHeight: '100vh' }}>
+          <img width={800} src={Loader} alt="loading" />
+        </div>: null)}
 
 
-        </div>
+      
       
         </>
     );

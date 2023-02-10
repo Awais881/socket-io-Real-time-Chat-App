@@ -1,3 +1,27 @@
+.search{
+  padding: 20px;
+  margin-top: 20px;
+display: flex;
+gap: 40px;
+} 
+.search button{
+  width: 80px;
+  height: 50px;
+  background-color: cornflowerblue;
+ border: none;
+ border-radius: 5px;
+  color: white;
+}
+.search input{
+  width: 200px;
+  height: 50px;
+  padding: 10px;
+border-radius: 5px;
+}
+.search button:hover{
+  background-color: gainsboro;
+  color: black;
+} 
 .friend-list .span {
 padding: 30px;
 margin: 20px;
@@ -30,7 +54,29 @@ background-color: azure;
   .friend-list  button:hover{
     background-color: gold;
   }
-  .form{
-     padding: 20px;
-  }
+ 
 
+  .userListItem {
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.notificationView {
+    position: fixed;
+    top: 0;
+    right: 0;
+    text-align: right;
+}
+
+.notificationView .item {
+    background-color: #DDDDDD;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.notificationView .title {
+    font-weight: bold;
+}

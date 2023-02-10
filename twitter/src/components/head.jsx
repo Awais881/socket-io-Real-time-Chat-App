@@ -149,8 +149,7 @@ export default function Head() {
           <MenuItem onClick={logoutHandler}>Logout</MenuItem>
           
         </Menu>
-      </AppBar>
-      
+      </AppBar>      
 
             <ToastContainer />
         </>

@@ -16,7 +16,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 
-router.post("/signup", (req ,res) =>{
+router.post("/api/v1/signup", (req ,res) =>{
 
     const body = req.body
    
@@ -98,7 +98,7 @@ router.post("/signup", (req ,res) =>{
    })
    });
    
-router.post("/login", (req, res) =>{
+router.post("/api/v1/login", (req, res) =>{
         
        let body = req.body;
        body.email = body.email.toLowerCase();
@@ -179,7 +179,7 @@ router.post("/login", (req, res) =>{
    
    });
    
-router.post("/logout", (req, res) =>{
+router.post("/api/v1/logout", (req, res) =>{
        res.cookie('Token', '', {
            maxAge: 1,
            httpOnly: true,

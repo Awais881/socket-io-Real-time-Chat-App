@@ -1,8 +1,11 @@
+
 .messageView {
     display: flex;
     flex-direction: column;
     border: 1px solid black;
-    height: 100vh;
+    height: 100%;
+    background-color: #B570D4;
+    padding: 20px;
 }
 .form {
     padding: 20px; 
@@ -40,5 +43,35 @@
     font-weight: bold;
 }
 h1{
-   color: darkgray;
+   color: black;
+}
+.chat-Head{
+    margin-top: 0px;
+     padding: 10px;
+   display: flex;
+   justify-content: space-between;
+    background-color: lightpink;
+}
+.chat-Head input{
+    padding: 10px;
+    border: none;
+    margin: 5px;
+}
+.chat-Head input:focus{
+    background-color: #E5E5EA;
+    border: 1px solid lightpink;
+}
+.chat-Head button{
+    width: 80px;
+    height: 40px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 5px;
+    margin-top: 8px;
+
+}
+.chat-Head button:hover{
+    background-color: #E5E5EA;
+    color: black;
 }

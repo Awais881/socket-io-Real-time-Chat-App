@@ -24,3 +24,10 @@
     text-decoration: none;
     color: white;
    }
+.form{
+   
+    margin-top: -30px;
+}
+.form form{
+    width: 100%;
+}

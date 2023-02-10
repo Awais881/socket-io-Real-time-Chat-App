@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { io } from "socket.io-client";
 import {
   AppBar, Avatar,  Badge,
-  ImageListItem, Input, InputBase,  Search, UserBox,  styled, StyledToolbar, Toolbar,
+  ImageListItem, Input, InputBase,  Search, UserBox,  styled, StyledToolbar, Toolbar,Autocomplete,
   Menu, MenuItem, Typography
 } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home';
@@ -20,6 +20,7 @@ import {
    import {
     MDBBtn, MDBContainer,MDBRow,MDBCol, MDBIcon,MDBInput
   } from 'mdb-react-ui-kit';
+
 
   import { Box } from '@mui/system'
 function FriendList() {
@@ -104,7 +105,7 @@ function FriendList() {
     }
   
     const getUsers = async (e) =>{
-        if (e) e.preventDefault();  
+        if (e) e.preventDefault();   
         try{
             const response = await axios.get(`${state.baseUrl}/users?q=${searchTerm}`)
             console.log("response : ", response.data);
@@ -151,7 +152,11 @@ function FriendList() {
         gap: "10px",
         marginBottom: "20px"
       })
-
+      const dismissNotification = (notification) => {
+        setNotifications(
+            allNotifications => allNotifications.filter(eachItem => eachItem._id !== notification._id)
+        )
+    }
   return (
     <>
           <AppBar position="sticky">
@@ -162,7 +167,10 @@ function FriendList() {
           </div>
           <HomeIcon sx={{ display: { xs: "block ", sm: "none" } }} className="logo" />
           <Search><InputBase placeholder='Search' sx={{ width: "100%" }} /></Search>
+           
+           
           <Icons>
+
 
             <Badge badgeContent={4} color="secondary" className="icon">
             <Link to={`/friend-list`} className="userMessage"> <Chat /></Link>  
@@ -203,18 +211,28 @@ function FriendList() {
           
         </Menu>
       </AppBar>
-      <form onSubmit={getUsers} className="form">
-         <h1>Search User</h1>
-     <input type="search" 
-      onChange={(e) => { setSearchTerm(e.target.value) }} />
-        <button type='sunmit'>Search</button>
-         </form>
+      
 
   
     
 
-
-
+         <div className='notificationView'>{
+                notifications.map((eachNotification, index) => {
+                    return <div key={index} className="item">
+                        <Link to={`/chat/${eachNotification.from._id}`}>
+                            <div className='title'>{eachNotification.from.firstName}</div>
+                            <div>{eachNotification.text.slice(0, 100)}</div>
+                        </Link>
+                        <button onClick={() => { dismissNotification(eachNotification) }}>dismiss</button>
+                    </div>
+                })
+            }</div>
+         <form onSubmit={getUsers} className="search">
+         <h1>Search User</h1>
+     <input type="search" 
+      onChange={(e) => { setSearchTerm(e.target.value) }}  placeholder="Search user"/>
+        <button type='sunmit'>Search</button>
+         </form> 
       
         {(users?.length) ?
                 users?.map((eachUser, index) => {
@@ -231,8 +249,13 @@ function FriendList() {
                 })
                 : null
             }
-            {(users?.length === 0 ? "No users found" : null)}
-            {(users === null ? "Loading..." : null)}
+            {(users?.length === 0 ? <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: '100vh' }}>
+          <img width={800} src={Loader} alt="loading" />
+          </div> : null)}
+            {(users === null ? 
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: '100vh' }}>
+          <img width={800} src={Loader} alt="loading" />
+        </div>: null)}
             <ToastContainer />
         </>
         );
