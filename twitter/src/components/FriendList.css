@@ -47,9 +47,12 @@ background-color: azure;
     border: none;
     border-radius: 50px;
     background-color: red;
-    color: greenyellow;
+   
   
     
+  }
+  .chat{
+  color: white;
   }
   .friend-list  button:hover{
     background-color: gold;

@@ -22,6 +22,7 @@ mongoose.set('strictQuery', true);
 
 
 const SECRET = process.env.SECRET || "topsecret";
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -278,7 +279,7 @@ const server = createServer(app);
 // handing over server access to socket.io
 const io = new socketIo(server, {
     cors: {
-        origin: ["http://localhost:3000", 'https://socket-io-react-time-chat-app-production.up.railway.app'],
+        origin: ["http://localhost:3000", "https://socket-io-react-time-chat-app-production.up.railway.app"],
         credentials: true
     }
 });
