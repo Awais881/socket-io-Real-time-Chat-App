@@ -166,7 +166,7 @@ app.post("/api/v1/change-password" , async (req, res) =>{
     
     )
 
-    app.get('/api/v1/users', async (req, res) => {
+    app.get('/api/v1/friend-list', async (req, res) => {
 
         const myId = req.body.token._id
     
@@ -268,9 +268,14 @@ app.post("/api/v1/change-password" , async (req, res) =>{
 
 
 const __dirname = path.resolve();
-app.use('/', express.static(path.join(__dirname, './twitter/build')))
-app.use('*', express.static(path.join(__dirname, './twiter/build')))
+// app.use('/', express.static(path.join(__dirname, './twitter/build')))
+// app.use('*', express.static(path.join(__dirname, './twitter/build')))
 
+app.use(express.static(path.join(__dirname, 'twitter/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'twitter/build', 'index.html'));
+});
 
 // THIS IS THE ACTUAL SERVER WHICH IS RUNNING
 const server = createServer(app);

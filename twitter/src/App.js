@@ -124,7 +124,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
            <Route path='profile' element={<Profile />} />
-           <Route path='friend-list' element={<FriendList />} />
+           <Route path="/friend-list" element={<FriendList />} />
            <Route path='chat/:id' element={<ChatScreen />} />
          <Route path='change-password' element={<ChangePassword />} />
          <Route path="*" element={<Navigate to="/" replace={true} />} />

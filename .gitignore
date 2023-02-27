@@ -1,4 +1,4 @@
-node_modules
+/node_modules
 #in our .gitignore file 
 process.env
 .env

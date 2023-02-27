@@ -3,7 +3,7 @@ import React from 'react';
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { GlobalContext } from '../context/context';
-import moment from 'moment'
+
 import { ToastContainer, toast } from 'react-toastify';
 import Loader from "../assets/PostLoader.gif"
 import { Link } from "react-router-dom";
@@ -106,7 +106,7 @@ function FriendList() {
     const getUsers = async (e) =>{
         if (e) e.preventDefault();   
         try{
-            const response = await axios.get(`${state.baseUrl}/users?q=${searchTerm}`)
+            const response = await axios.get(`${state.baseUrl}/friend-list?q=${searchTerm}`)
             console.log("response : ", response.data);
             setUsers(response.data)
            
