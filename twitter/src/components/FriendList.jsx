@@ -4,7 +4,6 @@ import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { GlobalContext } from '../context/context';
 import moment from 'moment'
-import './FriendList.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Loader from "../assets/PostLoader.gif"
 import { Link } from "react-router-dom";
@@ -70,7 +69,7 @@ function FriendList() {
     const logoutHandler = async () => {
 
       try {
-        let response = await axios.post(`${state.baseUrl}/api/v1/logout`, {
+        let response = await axios.post(`${state.baseUrl}/logout`, {
           withCredentials: true
         })
         console.log("response: ", response);
@@ -157,6 +156,7 @@ function FriendList() {
             allNotifications => allNotifications.filter(eachItem => eachItem._id !== notification._id)
         )
     }
+   
   return (
     <>
           <AppBar position="sticky">
@@ -214,21 +214,71 @@ function FriendList() {
       
 
   
-    
+       {/* <div>
+  {notifications
+    .filter((notification, index) => index < 5) // filter only the latest 5 notifications
+    .map((eachNotification, index) => (
+      <div key={index}>
+        <Link to={`/chat/${eachNotification.from._id}`}>
+          {toast(
+            <div>
+               <h4>{eachNotification.from.firstName} {eachNotification.from.lastName}</h4>  
+              <br />
+              {eachNotification.text.slice(0, 100)}
+            </div>,
+            {
+              className: 'toast-message',
+              position: 'top-right',
+              autoClose: 1000000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+            }
+          )}
+        </Link>
+      </div>
+    ))}
+</div>  */}
+  
 
-         <div className='notificationView'>{
-                notifications.map((eachNotification, index) => {
-                    return <div key={index} className="item">
-                        <Link to={`/chat/${eachNotification.from._id}`}>
-                            <div className='title'>{eachNotification.from.firstName}</div>
-                            <div>{eachNotification.text.slice(0, 100)}</div>
-                        </Link>
-                        <button onClick={() => { dismissNotification(eachNotification) }}>dismiss</button>
-                    </div>
-                })
-            }</div>
+
+<div>
+  {notifications
+    .slice(0, 5) // select only the first 5 notifications
+    .map((eachNotification, index) => (
+      <div key={index}>
+        <a href={`/chat/${eachNotification.from._id}`}>
+          {toast(
+            <div>
+                <h4>{eachNotification.from.firstName} {eachNotification.from.lastName}</h4>  
+              <br />
+              {eachNotification.text.slice(0, 100)}
+            </div>,
+            {
+              className: 'toast-message',
+              position: 'top-right',
+              autoClose: 1000000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              onClick: () => {
+                window.location.href = `/chat/${eachNotification.from._id}`;
+              },
+            }
+          )}
+        </a>
+      </div>
+    ))}
+</div>
+
          <form onSubmit={getUsers} className="search">
-         <h1>Search User</h1>
+         <h1>Search User</h1> 
      <input type="search" 
       onChange={(e) => { setSearchTerm(e.target.value) }}  placeholder="Search user"/>
         <button type='sunmit'>Search</button>
@@ -256,7 +306,7 @@ function FriendList() {
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: '100vh' }}>
           <img width={800} src={Loader} alt="loading" />
         </div>: null)}
-            <ToastContainer />
+            <ToastContainer/>
         </>
         );
       }

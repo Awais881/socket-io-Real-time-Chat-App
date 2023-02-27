@@ -68,7 +68,7 @@ background-color: azure;
 
 .notificationView {
     position: fixed;
-    top: 0;
+    top: 10;
     right: 0;
     text-align: right;
 }
@@ -82,4 +82,16 @@ background-color: azure;
 
 .notificationView .title {
     font-weight: bold;
+}
+.toast-message{
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 300px;
+ 
 }

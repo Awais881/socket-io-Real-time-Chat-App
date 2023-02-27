@@ -4,11 +4,12 @@ import {
 }
 from 'mdb-react-ui-kit';
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { GlobalContext } from '../context/context';
+import { io } from "socket.io-client";
 import './login.css';
 function Login() {
 
@@ -21,7 +22,7 @@ function Login() {
     e.preventDefault();
 
     try {
-        let response = await axios.post(`${state.baseUrl}/api/v1/login`, {
+        let response = await axios.post(`${state.baseUrl}/login`, {
             email: email,
             password: password
         }, {
@@ -64,6 +65,32 @@ function Login() {
 
  }
 
+ useEffect(() => {
+
+  const socket = io(state.baseUrlSocketIo, {
+      withCredentials: true
+  });
+
+  socket.on('connect', function () {
+      console.log("connected")
+  });
+  socket.on('disconnect', function (message) {
+      console.log("Socket disconnected from server: ", message);
+  });
+  socket.on("connect_error", (err) => {
+      console.log(`connect_error due to ${err.message}`);
+  });
+
+  socket.on(`personal-channel`, function (data) {
+      console.log("socket push data: ", data);
+  });
+
+  return () => {
+      socket.close();
+  }
+
+}, [])
+
 
   return (
     <MDBContainer fluid>
@@ -99,9 +126,11 @@ function Login() {
           {/* class="text-muted" */}
         </MDBCol>
 
-        <MDBCol sm='6' className='d-none d-sm-block px-0'>
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
-            alt="Login image" className="w-100" style={{objectFit: 'cover', objectPosition: 'left'}} />
+        <MDBCol sm='6' className='d-none d-sm-block px-0' >
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp" id='img-div'
+            alt="Login image" className="w-100 img" style={{objectFit: 'cover', objectPosition: 'left',
+          
+            }} /> 
         </MDBCol>
 
       </MDBRow>

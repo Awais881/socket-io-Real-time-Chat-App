@@ -47,7 +47,7 @@ function Profile() {
   const logoutHandler = async () => {
 
     try {
-      let response = await axios.post(`${state.baseUrl}/api/v1/logout`, {
+      let response = await axios.post(`${state.baseUrl}/logout`, {
         withCredentials: true
       })
       console.log("response: ", response);
@@ -83,7 +83,7 @@ function Profile() {
 
 
   const getAllTweets  = () => {
-    axios.get(`${state.baseUrl}/api/v1/tweets`)
+    axios.get(`${state.baseUrl}/tweets`)
       .then(response => {
         console.log("All Tweets", response.data.data);
         setTweets(response.data.data.reverse())
@@ -155,7 +155,7 @@ function Profile() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${state.baseUrl}/api/v1/tweet/${editingTweet.editingId}`,
+        `${state.baseUrl}/tweet/${editingTweet.editingId}`,
          {
           text: editingTweet.editingText
 
@@ -196,7 +196,7 @@ function Profile() {
   const deleted = (postId) => {
     // console.log(postId);
     setToggleReload(!toggleReload);
-    axios.delete(`${state.baseUrl}/api/v1/tweet/${postId}`)
+    axios.delete(`${state.baseUrl}/tweet/${postId}`)
       .then((response) => {
         console.log(response.data);
         toast.success('Deleted Sucessfully', {

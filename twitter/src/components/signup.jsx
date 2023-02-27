@@ -30,7 +30,7 @@ function Signup() {
         e.preventDefault();
 
         try {
-            let response = await axios.post(`${state.baseUrl}/api/v1/signup`, {
+            let response = await axios.post(`${state.baseUrl}/signup`, {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,

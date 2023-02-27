@@ -10,13 +10,13 @@ import { nanoid, customAlphabet } from 'nanoid'
 const SECRET = process.env.SECRET || "topsecret";
 import SendEmail  from './sendingMails/sendMails.mjs'
 
-const router = express.Router()
 import moment from "moment/moment.js";
 import * as dotenv from 'dotenv'
 dotenv.config()
+const router = express.Router()
 
 
-router.post("/api/v1/signup", (req ,res) =>{
+router.post("/signup", (req ,res) =>{
 
     const body = req.body
    
@@ -98,7 +98,7 @@ router.post("/api/v1/signup", (req ,res) =>{
    })
    });
    
-router.post("/api/v1/login", (req, res) =>{
+router.post("/login", (req, res) =>{
         
        let body = req.body;
        body.email = body.email.toLowerCase();
@@ -179,7 +179,7 @@ router.post("/api/v1/login", (req, res) =>{
    
    });
    
-router.post("/api/v1/logout", (req, res) =>{
+router.post("/logout", (req, res) =>{
        res.cookie('Token', '', {
            maxAge: 1,
            httpOnly: true,
@@ -190,7 +190,7 @@ router.post("/api/v1/logout", (req, res) =>{
    });
 
 
-   router.post('/api/v1/forget-password', async (req, res) => {
+   router.post('/forget-password', async (req, res) => {
 
 
     try {

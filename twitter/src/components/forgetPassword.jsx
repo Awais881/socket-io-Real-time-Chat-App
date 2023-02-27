@@ -29,7 +29,7 @@ function ForgetPassword() {
       e.preventDefault();
 
       try {
-          let response = await axios.post(`${state.baseUrl}/api/v1/forget-password`, {
+          let response = await axios.post(`${state.baseUrl}/forget-password`, {
               email: email,
           }, {
               withCredentials: true
@@ -68,7 +68,7 @@ function ForgetPassword() {
       e.preventDefault();
 
       try {
-          let response = await axios.post(`${state.baseUrl}/api/v1/check-otp`, {
+          let response = await axios.post(`${state.baseUrl}/check-otp`, {
               email: email,
               otp: otp,
               newPassword: newPassword

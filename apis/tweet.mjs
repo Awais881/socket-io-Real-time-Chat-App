@@ -112,7 +112,7 @@ router.post('/tweet', uploadMiddleware.any(), (req, res) => {
   
  
 
-router.get("/api/v1/tweetFeed", (req, res) =>{
+router.get("/tweetFeed", (req, res) =>{
 
     tweetModel.find(
         { isDeleted: false },
@@ -136,7 +136,7 @@ router.get("/api/v1/tweetFeed", (req, res) =>{
         });
 })
 
-router.get("/api/v1/tweets", (req, res) => {
+router.get("/tweets", (req, res) => {
 
     const userId = new mongoose.Types.ObjectId(req.body.token._id);
 
@@ -177,7 +177,7 @@ router.get("/api/v1/tweets", (req, res) => {
 
       });
   
-router.delete('/api/v1/tweet/:id', (req, res) => {
+router.delete('/tweet/:id', (req, res) => {
       const id = req.params.id;
       const body = req.body;
   
@@ -208,7 +208,7 @@ router.delete('/api/v1/tweet/:id', (req, res) => {
       });
   })
   
-router.put('/api/v1/tweet/:id', async (req, res) => {
+router.put('/tweet/:id', async (req, res) => {
   
       const body = req.body;
       const id = req.params.id;

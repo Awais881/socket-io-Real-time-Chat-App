@@ -53,7 +53,7 @@ function Tweets() {
   const logoutHandler = async () => {
 
     try {
-      let response = await axios.post(`${state.baseUrl}/api/v1/logout`, {
+      let response = await axios.post(`${state.baseUrl}/logout`, {
         withCredentials: true
       })
       console.log("response: ", response);
@@ -92,7 +92,7 @@ function Tweets() {
     if (eof)
     return
     try{
-    axios.get(`${state.baseUrl}/api/v1/tweetFeed?page=${tweets.length}`)
+    axios.get(`${state.baseUrl}/tweetFeed?page=${tweets.length}`)
 
 
 
@@ -175,7 +175,7 @@ function Tweets() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${state.baseUrl}/api/v1/tweet/${editingTweet.editingId}`,
+        `${state.baseUrl}/tweet/${editingTweet.editingId}`,
          {
           text: editingTweet.editingText
 
@@ -216,7 +216,7 @@ function Tweets() {
   const deleted = (postId) => {
     // console.log(postId);
     setToggleReload(!toggleReload);
-    axios.delete(`${state.baseUrl}/api/v1/tweet/${postId}`)
+    axios.delete(`${state.baseUrl}/tweet/${postId}`)
       .then((response) => {
         console.log(response.data);
         toast.success('Deleted Sucessfully', {

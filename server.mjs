@@ -12,7 +12,7 @@ import TweetApis from './apis/tweet.mjs'
 
 
 import { stringToHash, varifyHash } from 'bcrypt-inzi';
-import { userModel , otpModel, messageModel} from './dbRepo/models.mjs';
+import { userModel ,messageModel} from './dbRepo/models.mjs';
 const port = process.env.PORT || 5001;
 
 import { Server as socketIo } from 'socket.io';
@@ -96,7 +96,7 @@ const getUser = async (req, res) => {
   }
 
   try {
-      const user = await userModel.findOne({ _id: _id }, "email firstName lastName -_id").exec()
+      const user = await userModel.findOne({ _id: _id }, "email firstName lastName _id").exec()
       if (!user) {
           res.status(404).send({})
           return;
@@ -234,11 +234,10 @@ app.post("/api/v1/change-password" , async (req, res) =>{
             .populate({ path: 'to', select: 'firstName lastName email' })
             .exec();
     
-    
-        io.emit(`${req.body.to}-${req.body.token._id}`, populatedMessage)
-        io.emit(`personal-channel-${req.body.to}`, populatedMessage)
-    
-        console.log("populatedMessage: ", populatedMessage)
+            io.emit(`${req.body.to}-${req.body.token._id}`, populatedMessage)
+            io.emit(`personal-channel-${req.body.to}`, populatedMessage)
+        
+            console.log("populatedMessage: ", populatedMessage)
     
         res.send("message sent successfully");
     })

@@ -68,6 +68,7 @@ function ChatScreen() {
 
             console.log(data);
             setConversation(prev => [data, ...prev])
+           
         });
 
 
@@ -76,6 +77,7 @@ function ChatScreen() {
         }
 
     }, [])
+   
 
     useEffect(() => {
 
