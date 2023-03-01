@@ -153,7 +153,7 @@ function ForgetPassword() {
     </>
     : null}
             <p className='ms-5'>Don't have an account? <Link to={`/signup`}>Register here</Link></p>
-
+            <p className='ms-5'>already have an account? <Link to={`/login`}>Login here</Link></p>
           </div>
         
         </MDBCol>

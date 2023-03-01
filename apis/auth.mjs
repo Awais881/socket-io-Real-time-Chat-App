@@ -254,6 +254,7 @@ router.post('/check-otp', async (req, res) => {
                 }`
             );
            
+           
             return;
         }
      console.log(body.otp)
@@ -279,7 +280,7 @@ router.post('/check-otp', async (req, res) => {
             const isMatched = await varifyHash(body.otp, otpRecord.otp);
             if (!isMatched) throw new Error("Invalid OTP ");
         
-            const newhashPassword = await stringToHash(body.new_password);
+            const newhashPassword = await stringToHash(body.newPassword);
             await userModel
               .updateOne({ email: body.email }, { password: newhashPassword })
               .exec();
