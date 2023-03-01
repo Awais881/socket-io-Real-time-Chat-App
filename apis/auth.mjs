@@ -238,7 +238,7 @@ router.post("/logout", (req, res) =>{
 
 
 
-router.post('/api/v1/check-otp', async (req, res) => {
+router.post('/check-otp', async (req, res) => {
     try {
 
         let body = req.body;
