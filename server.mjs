@@ -283,7 +283,7 @@ const server = createServer(app);
 // handing over server access to socket.io
 const io = new socketIo(server, {
     cors: {
-        origin: ["http://localhost:3000", "https://socket-io-react-time-chat-app-production.up.railway.app"],
+        origin: ["http://localhost:3000", "https://socket-io-real-time-chat-app.vercel.app/"],
         credentials: true
     }
 });
