@@ -379,14 +379,7 @@ function Profile() {
               <br />  <img width={400} src={preview} alt="" />
           </Box>
 
-          <InfiniteScroll
-                pageStart={0}
-                loadMore={getAllTweets}
-                hasMore={!eof}
-                loader={<div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", minHeight: '100vh' }}>
-                <img width={780} src={Loader} alt=""  />
-              </div>}
-            >
+         
 
 
 
@@ -486,7 +479,7 @@ function Profile() {
               </Card>
             ))}
           </Box>
-          </InfiniteScroll>
+       
         </Box>
 
 

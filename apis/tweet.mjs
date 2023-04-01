@@ -226,25 +226,23 @@ router.put('/tweet/:id', async (req, res) => {
       }
   
       try {
-          let data = await tweetModel.findOneAndUpdate(
+        let data = await tweetModel.findOneAndUpdate(
             {
-                _id: id,
-                owner: new mongoose.Types.ObjectId(body.token._id)
+              _id: id,
+              owner: new mongoose.Types.ObjectId(body.token._id)
             },
             {
-                text: body.text,
+              text: body.text,
             },
-            
-              { new: true }
+            { new: true }
           ).exec();
-  
-          console.log('updated: ', data);
-  
-          res.send({
-              message: "tweet modified successfully",
-              data: data
-          });
-  
+          
+          if (!data) {
+            return res.status(404).send({
+              message: "tweet not found"
+            });
+          }
+          console.log("updated data" , data)
       } catch (error) {
           res.status(500).send({
               message: "update error"

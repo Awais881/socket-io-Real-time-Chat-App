@@ -44,7 +44,7 @@ export const otpModel = mongoose.model('Otps', otpSchema);
   messagesSchema.index({ text: 'text' });
  export const messageModel = mongoose.model('Messages', messagesSchema);
 
-const mongodbURI = process.env.mongodbURI || "mongodb+srv://abc:awais123@cluster0.h4fc1n7.mongodb.net/Products?retryWrites=true&w=majority";
+const mongodbURI = process.env.mongodbURI || "mongodb+srv://abc:awais123@cluster0.h4fc1n7.mongodb.net/test?retryWrites=true&w=majority";
 
 
 mongoose.connect(mongodbURI);

@@ -98,7 +98,7 @@ function Tweets() {
 
       .then(response => {
         console.log("All Tweets", response.data.data);
-        if( response.data.data ===0) setEof(true)
+        if( response.data === 0) setEof(true)
         setTweets((prev) => {
 
           
@@ -286,8 +286,8 @@ function Tweets() {
             <MDBIcon fas icon="crow fa-2x me-3" style={{ color: '#709085' }}/>
             <span className="h4 fw-bold mb-0">Tweets</span>
           </div>
-          <HomeIcon sx={{ display: { xs: "block ", sm: "none" } }} className="logo" />
-          <Search><InputBase placeholder='Search' sx={{ width: "100%" }} /></Search>
+          {/* <HomeIcon sx={{ display: { xs: "block ", sm: "none" } }} className="logo" /> */}
+          {/* <Search><InputBase placeholder='Search' sx={{ width: "100%" }} /></Search> */}
           <Icons>
 
             <Badge badgeContent={4} color="secondary" className="icon">
@@ -420,7 +420,7 @@ function Tweets() {
               justifyContent: "center",
               mt: "10px"
             }}>
-              <Box flex={1} height={280} bgcolor={"background.default"} color={"text.primary"}
+              <Box flex={1} height={280}  bgcolor={"background.default"} color={"text.primary"}
                 p={3} border="1px solid black"
                 pb={5}
                 // sx={{ border: { xs: "none", sm: "block", md: "block" } }}
@@ -445,6 +445,7 @@ function Tweets() {
                 
                     <Stack direction='row' gap={1} mt={2} mb={3}>
                      <input 
+                      
                          id='picture'
                          type="file"
                          accept='image/*'
@@ -465,7 +466,7 @@ function Tweets() {
                     <ButtonGroup fullWidth
                       variant='contained'
                       aria-label='outlined primary button group'>
-                      <Button type='submit' >Tweet</Button>
+                      <Button type='submit'>Tweet</Button>
 
 
                     </ButtonGroup>
@@ -481,7 +482,7 @@ function Tweets() {
           <InfiniteScroll
                 pageStart={0}
                 loadMore={getAllTweets}
-                hasMore={!eof}
+                hasMore={eof}
                 loader={<div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", minHeight: '100vh' }}>
                 <img width={780} src={Loader} alt=""  />
               </div>}
